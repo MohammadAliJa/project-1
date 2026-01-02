@@ -1,0 +1,24 @@
+{
+  "name": "project-1",
+  "version": "1.0.0",
+  "description": "Learning BE with practice",
+  "homepage": "https://github.com/MohammadAliJa/project-1#readme",
+  "bugs": {
+    "url": "https://github.com/MohammadAliJa/project-1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohammadAliJa/project-1.git"
+  },
+  "license": "ISC",
+  "author": "Mohammad Ali Ja",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
