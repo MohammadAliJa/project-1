@@ -29,4 +29,6 @@ const registerUser = async (req, res) => {
     }
 }
 
-export { registeredUser };
+export {
+    registerUser
+};
