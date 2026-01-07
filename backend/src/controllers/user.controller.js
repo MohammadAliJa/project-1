@@ -15,20 +15,56 @@ const registerUser = async (req, res) => {
         }
 
         //Create new user
-        const newUser = await User.Create({
+        const newUser = await User.create({
             username,
             email: email.toLowerCase(),
             password,
             loggedIn: false
         });
 
-        res.status(201).json({ message: "User registered successfully", userId: newUser._id, email: newUser.email, username: newUser.username });
+        res.status(201).json({ message: "User registered successfully", user: { userId: newUser._id, email: newUser.email, username: newUser.username } });
 
     } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+        res.status(500).json({ message: "Server error!", error: error.message });
     }
 }
 
+const loginUser = async (req, res) => {
+    try {
+        //checking id user already exists
+        const { email, password } = req.body;
+
+        const user = await User.findOne({
+            email: email.toLowerCase()
+        });
+
+        if (!user) return res.status(404).json({
+            message: "User not found"
+        });
+
+
+        //compare password
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) return res.status(400).json({
+            message: "Invalid credentials"
+        })
+
+        res.status(200).json({
+            message: "Successfully Logged In",
+            user: {
+                id: user._id,
+                email: user.email,
+                username: user.username
+            }
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+
+    }
+}
 export {
-    registerUser
+    registerUser,
+    loginUser
 };
